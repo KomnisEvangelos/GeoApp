@@ -1,8 +1,8 @@
 # GeoApp
-This repository is a project for the Sorftware Engineering Cource a the International Hellenic University. The application allows agriculturist to store and categorize photos from the plants and share them within a community.
+This repository is a project for the Software Engineering Course at the International Hellenic University. The application allows agriculturists to store and categorize photos from the plants and share them within a community.
 
 # Description
-This project was developed as part of the "Software engineering" course at International Hellenic University. The objective was to create a large android application to learn the process and tools reacuired for project managment.
+This project was developed as part of the "Software engineering" course at International Hellenic University. The objective was to create a large android application to learn the process and tools required for project managment.
 
 # Features
 TBA
