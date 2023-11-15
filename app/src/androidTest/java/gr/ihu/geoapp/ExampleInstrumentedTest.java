@@ -1,4 +1,4 @@
-package com.example.geoapp;
+package gr.ihu.geoapp;
 
 import android.content.Context;
 

@@ -1,4 +1,4 @@
-package com.example.geoapp.ui.dashboard;
+package gr.ihu.geoapp.ui.dashboard;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.geoapp.databinding.FragmentDashboardBinding;
+import gr.ihu.geoapp.databinding.FragmentDashboardBinding;
 
 public class DashboardFragment extends Fragment {
 

@@ -1,4 +1,4 @@
-package com.example.geoapp.Managers;
+package gr.ihu.geoapp.Managers;
 
 public class UploadManager {
 
