@@ -1,0 +1,19 @@
+1) Oλοκληρώθηκε η εξής ενημέρωση σχετικά με τα παρακάτω προβλήματα
+
+Αποθήκευση εικόνας από το imageView
+https://www.youtube.com/watch?v=FcCtT1C7NGI
+
+Get result from an activity(on activity result)
+https://developer.android.com/training/basics/intents/result
+
+Εξήγηση σχετικά με τα Permissions
+https://www.youtube.com/watch?v=HkywLCyLnKo&list=PL9HYomN4XwEkRwk7tj29pI5G5JdKywU_Y
+
+Αρχιτεκτονική Model View ViewModel 
+https://www.geeksforgeeks.org/mvvm-model-view-viewmodel-architecture-pattern-in-android/
+https://www.youtube.com/watch?v=mfqOug9HyX4
+https://www.youtube.com/watch?v=eUQebUJLnXI
+
+
+
+

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "472136395986",
+    "project_id": "geoapp-4b6cc",
+    "storage_bucket": "geoapp-4b6cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:472136395986:android:43b5ff18eae5b8f871910b",
+        "android_client_info": {
+          "package_name": "gr.ihu.geoapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4GANfMWrDo2TOscWR_Xydfzdlxt_xE08"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
