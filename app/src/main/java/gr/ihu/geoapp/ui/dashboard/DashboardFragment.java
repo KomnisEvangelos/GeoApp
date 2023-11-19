@@ -29,7 +29,7 @@ import gr.ihu.geoapp.databinding.FragmentDashboardBinding;
 public class DashboardFragment extends Fragment {
     private FragmentDashboardBinding binding;
     private ImageView imageView;
-    private static final int GALLERY_REQUEST_CODE = 1000;
+    public static final int GALLERY_REQUEST_CODE = 1000;
     private static final int CAMERA_REQUEST_CODE = 2000;
     private DashboardViewModel dashboardViewModel;
 
@@ -40,9 +40,6 @@ public class DashboardFragment extends Fragment {
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        //final TextView textView = binding.textDashboard;
-        //dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         final ImageView imageView = binding.image;
 
