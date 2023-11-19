@@ -1,5 +1,6 @@
 package gr.ihu.geoapp.ui.dashboard;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.widget.ImageView;
 
@@ -13,6 +14,7 @@ public class DashboardViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
     private MutableLiveData<String> imagePath = new MutableLiveData<>();
+    private MutableLiveData<Bitmap> imageBitmap = new MutableLiveData<>();
 
     public DashboardViewModel() {
         mText = new MutableLiveData<>();
@@ -28,7 +30,10 @@ public class DashboardViewModel extends ViewModel {
         imagePath.setValue(path);
     }
 
+    public void setImageBitmap(Bitmap bitmap){ imageBitmap.setValue(bitmap); }
+
     public LiveData<String> getImagePath() {
         return imagePath;
     }
+    public LiveData<Bitmap> getImageBitmap(){return imageBitmap; }
 }
