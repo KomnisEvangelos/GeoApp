@@ -9,16 +9,44 @@
     android:orientation = "vertical"
     tools:context="gr.ihu.geoapp.ui.dashboard.DashboardFragment">
 
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+
+
+    </com.google.android.material.chip.ChipGroup>
     <ImageView
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_centerInParent="true"
         android:scaleType = "fitXY"
+        android:layout_below="@id/tagEditText"
         android:id = "@+id/image" />
+    <EditText
+        android:id="@+id/tagEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chipGroup"
+        android:layout_marginTop="16dp"
+        android:hint="Enter new tag"/>
+
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="Add Tag"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/image"
+        android:layout_below="@+id/addButton"
         android:layout_centerHorizontal="true"
         android:id = "@+id/button_Gallery"
         android:layout_marginTop = "21dp"
