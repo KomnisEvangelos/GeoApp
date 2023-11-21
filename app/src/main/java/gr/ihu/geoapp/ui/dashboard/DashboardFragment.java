@@ -13,8 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +24,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 
 import gr.ihu.geoapp.Managers.UploadManager;
 import gr.ihu.geoapp.databinding.FragmentDashboardBinding;
@@ -32,6 +36,8 @@ public class DashboardFragment extends Fragment {
     public static final int GALLERY_REQUEST_CODE = 1000;
     private static final int CAMERA_REQUEST_CODE = 2000;
     private DashboardViewModel dashboardViewModel;
+    private ChipGroup chipGroup;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -42,6 +48,36 @@ public class DashboardFragment extends Fragment {
         View root = binding.getRoot();
 
         final ImageView imageView = binding.image;
+        chipGroup = binding.chipGroup;
+//       // chipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(ChipGroup group, int checkedId) {
+//
+//                Chip selectedChip = findViewById(checkedId);
+//                if (selectedChip != null) {
+//                    String category = selectedChip.getText().toString();
+//
+//                }
+//            }
+//        });
+
+        Button addButton= binding.addButton;
+        EditText tagEditText= binding.tagEditText;
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newTag = tagEditText.getText().toString().trim();
+                if (!newTag.isEmpty()) {
+
+                    Chip newChip = new Chip(getContext());
+                    newChip.setText(newTag);
+                    chipGroup.addView(newChip);
+
+
+                    tagEditText.setText("");
+                }
+            }
+        });
 
         dashboardViewModel.getImagePath().observe(getViewLifecycleOwner(), imagePath -> {
             if (imagePath != null && !imagePath.isEmpty()) {
