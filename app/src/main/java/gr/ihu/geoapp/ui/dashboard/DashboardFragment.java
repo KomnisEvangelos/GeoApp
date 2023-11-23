@@ -38,6 +38,7 @@ public class DashboardFragment extends Fragment {
     private DashboardViewModel dashboardViewModel;
     private ChipGroup chipGroup;
     private String currentDescription = "";
+    private String currentTitle = "";
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -65,12 +66,20 @@ public class DashboardFragment extends Fragment {
         Button addButton= binding.addButton;
         EditText tagEditText= binding.tagEditText;
         EditText descrEditText = binding.descrEditText;
+        EditText titleEditText = binding.titleEditText;
         Button addDescrBtn = binding.addDescrBtn;
         Button saveDescrBtn = binding.saveDescrBtn;
         Button editDescrBtn = binding.editDescrBtn;
+        Button addTitleBtn = binding.addTitleBtn;
+        Button saveTitleBtn = binding.saveTitleBtn;
+        Button editTitleBtn = binding.editTitleBtn;
 
+        addTitleBtn.setVisibility(View.GONE);
+        addDescrBtn.setVisibility(View.GONE);
         saveDescrBtn.setVisibility(View.GONE);
         editDescrBtn.setVisibility(View.GONE);
+        saveTitleBtn.setVisibility(View.GONE);
+        editTitleBtn.setVisibility(View.GONE);
 
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +139,16 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        addTitleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                titleEditText.setVisibility(View.VISIBLE);
+                saveTitleBtn.setVisibility(View.VISIBLE);
+                editTitleBtn.setVisibility(View.GONE);
+                addTitleBtn.setVisibility(View.GONE);
+            }
+        });
+
         saveDescrBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,6 +163,20 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        saveTitleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentTitle = titleEditText.getText().toString();
+                titleEditText.setText(currentDescription);
+                titleEditText.setEnabled(false);
+                titleEditText.setTextIsSelectable(true);
+                titleEditText.setVisibility(View.VISIBLE);
+                saveTitleBtn.setVisibility(View.GONE);
+                editTitleBtn.setVisibility(View.VISIBLE);
+                addTitleBtn.setVisibility(View.GONE);
+            }
+        });
+
         editDescrBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,6 +186,18 @@ public class DashboardFragment extends Fragment {
                 descrEditText.requestFocus();
                 saveDescrBtn.setVisibility(View.VISIBLE);
                 editDescrBtn.setVisibility(View.GONE);
+            }
+        });
+
+        editTitleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                titleEditText.setEnabled(true);
+                titleEditText.setFocusable(true);
+                titleEditText.setClickable(true);
+                titleEditText.requestFocus();
+                saveTitleBtn.setVisibility(View.VISIBLE);
+                editTitleBtn.setVisibility(View.GONE);
             }
         });
 
@@ -171,11 +216,15 @@ public class DashboardFragment extends Fragment {
         if (requestCode == GALLERY_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
             Uri selectedImageUri = data.getData();
             dashboardViewModel.setImagePath(selectedImageUri.toString());
+            binding.addTitleBtn.setVisibility(View.VISIBLE);
+            binding.addDescrBtn.setVisibility(View.VISIBLE);
         } else if (requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             Bundle extras = data.getExtras();
                 if (data != null) {
                     Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
                     dashboardViewModel.setImageBitmap(imageBitmap);
+                    binding.addTitleBtn.setVisibility(View.VISIBLE);
+                    binding.addDescrBtn.setVisibility(View.VISIBLE);
                 }
         }
 
