@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:gravity = "center_horizontal"
     android:orientation = "vertical"
-    tools:context="gr.ihu.geoapp.ui.dashboard.DashboardFragment">
+   tools:context="gr.ihu.geoapp.ui.dashboard.DashboardFragment"
+    >
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
@@ -23,8 +24,9 @@
         android:layout_height="300dp"
         android:layout_centerInParent="true"
         android:scaleType = "fitXY"
-        android:layout_below="@id/tagEditText"
+        android:layout_below="@id/addButton"
         android:id = "@+id/image" />
+
     <EditText
         android:id="@+id/tagEditText"
         android:layout_width="match_parent"
@@ -38,17 +40,18 @@
         android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/image"
+        android:layout_below="@id/tagEditText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
         android:text="Add Tag"/>
 
     <Button
+        android:id = "@+id/button_Gallery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/addButton"
+        android:layout_below="@+id/editDescrBtn"
         android:layout_centerHorizontal="true"
-        android:id = "@+id/button_Gallery"
         android:layout_marginTop = "21dp"
         android:text = "Open Gallery"/>
 
@@ -59,5 +62,50 @@
         android:text="Open Camera"
         android:layout_below="@+id/button_Gallery"
         android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/descrEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_below="@id/image"
+        android:inputType="text"
+        android:hint="Add Description.."
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/addDescrBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/descrEditText"
+        android:text="Add Description"
+        />
+
+    <Button
+        android:id="@+id/saveDescrBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/addDescrBtn"
+        android:layout_toRightOf="@+id/addDescrBtn"
+        android:layout_marginTop="16dp"
+        android:text="Save Description"
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/editDescrBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addDescrBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Edit Description"
+        android:visibility="gone"
+        />
+
 
 </RelativeLayout>

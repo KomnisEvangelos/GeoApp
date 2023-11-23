@@ -37,6 +37,7 @@ public class DashboardFragment extends Fragment {
     private static final int CAMERA_REQUEST_CODE = 2000;
     private DashboardViewModel dashboardViewModel;
     private ChipGroup chipGroup;
+    private String currentDescription = "";
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -63,6 +64,15 @@ public class DashboardFragment extends Fragment {
 
         Button addButton= binding.addButton;
         EditText tagEditText= binding.tagEditText;
+        EditText descrEditText = binding.descrEditText;
+        Button addDescrBtn = binding.addDescrBtn;
+        Button saveDescrBtn = binding.saveDescrBtn;
+        Button editDescrBtn = binding.editDescrBtn;
+
+        saveDescrBtn.setVisibility(View.GONE);
+        editDescrBtn.setVisibility(View.GONE);
+
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,6 +117,42 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
+            }
+        });
+
+        addDescrBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                descrEditText.setVisibility(View.VISIBLE);
+                saveDescrBtn.setVisibility(View.VISIBLE);
+                editDescrBtn.setVisibility(View.GONE);
+                addDescrBtn.setVisibility(View.GONE);
+            }
+        });
+
+        saveDescrBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDescription = descrEditText.getText().toString();
+                descrEditText.setText(currentDescription);
+                descrEditText.setEnabled(false);
+                descrEditText.setTextIsSelectable(true);
+                descrEditText.setVisibility(View.VISIBLE);
+                saveDescrBtn.setVisibility(View.GONE);
+                editDescrBtn.setVisibility(View.VISIBLE);
+                addDescrBtn.setVisibility(View.GONE);
+            }
+        });
+
+        editDescrBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                descrEditText.setEnabled(true);
+                descrEditText.setFocusable(true);
+                descrEditText.setClickable(true);
+                descrEditText.requestFocus();
+                saveDescrBtn.setVisibility(View.VISIBLE);
+                editDescrBtn.setVisibility(View.GONE);
             }
         });
 
