@@ -167,7 +167,7 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 currentTitle = titleEditText.getText().toString();
-                titleEditText.setText(currentDescription);
+                titleEditText.setText(currentTitle);
                 titleEditText.setEnabled(false);
                 titleEditText.setTextIsSelectable(true);
                 titleEditText.setVisibility(View.VISIBLE);
