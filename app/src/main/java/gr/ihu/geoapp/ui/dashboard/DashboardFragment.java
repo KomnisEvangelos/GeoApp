@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -12,8 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +24,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 
 import gr.ihu.geoapp.Managers.UploadManager;
 import gr.ihu.geoapp.databinding.FragmentDashboardBinding;
@@ -28,8 +33,11 @@ import gr.ihu.geoapp.databinding.FragmentDashboardBinding;
 public class DashboardFragment extends Fragment {
     private FragmentDashboardBinding binding;
     private ImageView imageView;
-    private static final int GALLERY_REQUEST_CODE = 1000;
+    public static final int GALLERY_REQUEST_CODE = 1000;
+    private static final int CAMERA_REQUEST_CODE = 2000;
     private DashboardViewModel dashboardViewModel;
+    private ChipGroup chipGroup;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -39,14 +47,48 @@ public class DashboardFragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        //final TextView textView = binding.textDashboard;
-        //dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
         final ImageView imageView = binding.image;
+        chipGroup = binding.chipGroup;
+//       // chipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(ChipGroup group, int checkedId) {
+//
+//                Chip selectedChip = findViewById(checkedId);
+//                if (selectedChip != null) {
+//                    String category = selectedChip.getText().toString();
+//
+//                }
+//            }
+//        });
+
+        Button addButton= binding.addButton;
+        EditText tagEditText= binding.tagEditText;
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newTag = tagEditText.getText().toString().trim();
+                if (!newTag.isEmpty()) {
+
+                    Chip newChip = new Chip(getContext());
+                    newChip.setText(newTag);
+                    chipGroup.addView(newChip);
+
+
+                    tagEditText.setText("");
+                }
+            }
+        });
 
         dashboardViewModel.getImagePath().observe(getViewLifecycleOwner(), imagePath -> {
             if (imagePath != null && !imagePath.isEmpty()) {
                 Glide.with(requireContext()).load(imagePath).into(imageView);
+            }
+        });
+
+        dashboardViewModel.getImageBitmap().observe(getViewLifecycleOwner(), imageBitmap -> {
+            if (imageBitmap != null) {
+                imageView.setImageBitmap(imageBitmap);
+
             }
         });
 
@@ -56,6 +98,15 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
+            }
+        });
+
+        Button cameraButton = binding.buttonCamera;
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
             }
         });
 
@@ -74,6 +125,15 @@ public class DashboardFragment extends Fragment {
         if (requestCode == GALLERY_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
             Uri selectedImageUri = data.getData();
             dashboardViewModel.setImagePath(selectedImageUri.toString());
+        } else if (requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            Bundle extras = data.getExtras();
+                if (data != null) {
+                    Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+                    dashboardViewModel.setImageBitmap(imageBitmap);
+                }
         }
+
     }
+
+
 }
