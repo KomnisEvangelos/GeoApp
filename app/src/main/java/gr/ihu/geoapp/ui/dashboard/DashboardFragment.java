@@ -24,21 +24,25 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import gr.ihu.geoapp.Managers.UploadManager;
+import gr.ihu.geoapp.R;
 import gr.ihu.geoapp.databinding.FragmentDashboardBinding;
 
 public class DashboardFragment extends Fragment {
     private FragmentDashboardBinding binding;
     private ImageView imageView;
     public static final int GALLERY_REQUEST_CODE = 1000;
-    private static final int CAMERA_REQUEST_CODE = 2000;
+    public static final int CAMERA_REQUEST_CODE = 2000;
     private DashboardViewModel dashboardViewModel;
     private ChipGroup chipGroup;
     private String currentDescription = "";
     private String currentTitle = "";
+
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -111,23 +115,20 @@ public class DashboardFragment extends Fragment {
             }
         });
 
-        Button galleryButton = binding.buttonGallery;
-        galleryButton.setOnClickListener(new View.OnClickListener() {
+
+
+        Button uploadButton = binding.buttonUpload;
+        uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
+                BottomSheetButtonsFragment bottomSheetButtonsFragment = BottomSheetButtonsFragment.newInstance(DashboardFragment.this);
+                bottomSheetButtonsFragment.show(getChildFragmentManager(), bottomSheetButtonsFragment.getTag());
             }
         });
 
-        Button cameraButton = binding.buttonCamera;
-        cameraButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
-            }
-        });
+
+
+
 
         addDescrBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,6 +219,7 @@ public class DashboardFragment extends Fragment {
             dashboardViewModel.setImagePath(selectedImageUri.toString());
             binding.addTitleBtn.setVisibility(View.VISIBLE);
             binding.addDescrBtn.setVisibility(View.VISIBLE);
+            binding.buttonUpload.setVisibility(View.GONE);
         } else if (requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             Bundle extras = data.getExtras();
                 if (data != null) {
@@ -225,6 +227,7 @@ public class DashboardFragment extends Fragment {
                     dashboardViewModel.setImageBitmap(imageBitmap);
                     binding.addTitleBtn.setVisibility(View.VISIBLE);
                     binding.addDescrBtn.setVisibility(View.VISIBLE);
+                    binding.buttonUpload.setVisibility(View.GONE);
                 }
         }
 

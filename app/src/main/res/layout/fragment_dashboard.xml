@@ -6,11 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:gravity = "center_horizontal"
     android:orientation = "vertical"
    tools:context="gr.ihu.geoapp.ui.dashboard.DashboardFragment"
@@ -23,15 +20,15 @@
         android:layout_marginTop="16dp">
 
 
-
     </com.google.android.material.chip.ChipGroup>
+
     <ImageView
+        android:id="@+id/image"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_centerInParent="true"
-        android:scaleType = "fitXY"
         android:layout_below="@id/addButton"
-        android:id = "@+id/image" />
+        android:layout_centerInParent="true"
+        android:scaleType="fitXY" />
 
     <EditText
         android:id="@+id/tagEditText"
@@ -39,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/chipGroup"
         android:layout_marginTop="16dp"
-        android:hint="Enter new tag"/>
+        android:hint="Enter new tag" />
 
 
     <Button
@@ -52,21 +49,13 @@
         android:layout_marginBottom="16dp"
         android:text="Add Tag"/>
 
-    <Button
-        android:id = "@+id/button_Gallery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editDescrBtn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop = "21dp"
-        android:text = "Open Gallery"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button_Camera"
-        android:text="Open Camera"
-        android:layout_below="@+id/button_Gallery"
+        android:id="@+id/button_Upload"
+        android:text="Upload Photo"
+        android:layout_below="@+id/image"
         android:layout_centerHorizontal="true" />
 
     <EditText
