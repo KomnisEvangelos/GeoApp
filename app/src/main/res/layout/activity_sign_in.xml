@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.login.SignIn">
+    tools:context=".ui.signin.SignInActivity">
 
     <TextView
         android:id="@+id/txtview_signin"
@@ -16,33 +16,49 @@
         android:textColor="@color/black"
         android:textSize="35sp" />
 
-    <EditText
-        android:id="@+id/Email"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailTextInput"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_centerHorizontal="true"
         android:ems="15"
-        android:hint="Email"
-        android:padding="10dp"
+        app:helperText="Email"
+        android:padding="20dp"
         android:textColor="@color/black"
         android:layout_marginTop="100dp"
-        android:layout_below="@+id/txtview_signin" />
+        android:layout_below="@+id/txtview_signin"
+        app:errorEnabled="true">
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/emailEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/Password"
-        android:layout_width="wrap_content"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordTextInput"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_centerHorizontal="true"
         android:ems="15"
-        android:hint="Password"
-        android:padding="10dp"
+        app:helperText="Password"
+        android:padding="20dp"
         android:textColor="@color/black"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/Email" />
+        android:layout_below="@+id/emailTextInput"
+        app:errorEnabled="true"
+        app:passwordToggleEnabled="true">
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/button_Signin"
@@ -50,7 +66,7 @@
         android:layout_height="wrap_content"
         android:text="Sign In"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/Password"
+        android:layout_below="@+id/passwordTextInput"
         android:layout_marginTop="50dp" />
 
     <Button
