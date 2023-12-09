@@ -19,6 +19,9 @@ jobs:
         distribution: 'adopt'
         java-version: '11'
 
+    - name: Grant execute permissions to gradlew
+      run: chmod +x ./gradlew
+
     - name: Build with Gradle
       run: |
         ./gradlew assembleRelease
@@ -34,10 +37,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
     - name: Download Release APK
       uses: actions/download-artifact@v2
       with:
         name: release-apk
+
+    - name: Check and set execute permissions
+      run: |
+        ls -l ./gradlew
+        chmod +x ./gradlew
+        ls -l ./gradlew
 
     - name: Create Release
       id: create_release
