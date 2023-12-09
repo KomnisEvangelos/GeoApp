@@ -1,23 +1,16 @@
-package gr.ihu.geoapp.ui.login;
+package gr.ihu.geoapp.ui.signup;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-import com.google.android.material.textfield.TextInputEditText;
-import androidx.lifecycle.ViewModelProvider;
-
 import gr.ihu.geoapp.Managers.Validator;
-import gr.ihu.geoapp.R;
 import gr.ihu.geoapp.databinding.ActivityRegisterBinding;
-import gr.ihu.geoapp.ui.dashboard.DashboardViewModel;
 
 public class RegisterActivity extends AppCompatActivity {
 

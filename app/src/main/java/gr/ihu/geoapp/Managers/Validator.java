@@ -1,12 +1,16 @@
 package gr.ihu.geoapp.Managers;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.widget.EditText;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validator {
+
     private static final String NAME_PATTERN = "^[a-zA-Z]+$";
     private static final String EMAIL_PATTERN =
             "^[A-Za-z0-9\\+\\_.\\-]+@(gmail|outlook|yahoo|hotmail)\\.(com|gr)$";
@@ -14,7 +18,7 @@ public class Validator {
             "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
 
     public static boolean validateName(EditText fullNameEditText) {
-        String Input = (fullNameEditText != null) ? fullNameEditText.getText().toString():"";
+        String Input = (fullNameEditText != null) ? fullNameEditText.getText().toString() : "";
         Pattern pattern = Pattern.compile(NAME_PATTERN);
         Matcher matcher = pattern.matcher(Input);
 
@@ -30,7 +34,7 @@ public class Validator {
         }
     }
 
-    public static boolean validateEmail(EditText emailEditText){
+    public static boolean validateEmail(EditText emailEditText) {
         String Input = (emailEditText != null) ? emailEditText.getText().toString().trim() : "";
         Pattern pattern = Pattern.compile(EMAIL_PATTERN);
         Matcher matcher = pattern.matcher(Input);
@@ -47,8 +51,8 @@ public class Validator {
         }
     }
 
-    public static boolean validatePassword(EditText passwordEditText){
-        String Input = (passwordEditText != null) ? passwordEditText.getText().toString().trim():"";
+    public static boolean validatePassword(EditText passwordEditText) {
+        String Input = (passwordEditText != null) ? passwordEditText.getText().toString().trim() : "";
         Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
         Matcher matcher = pattern.matcher(Input);
 
@@ -62,5 +66,18 @@ public class Validator {
             passwordEditText.setError(null);
             return true;
         }
+    }
+
+    public boolean isSignInDataValid(EditText emailEditText, EditText passwordEditText) {
+
+        if (TextUtils.isEmpty(emailEditText.getText())) {
+            emailEditText.setError("Email is required");
+            //return;
+        }
+        if (TextUtils.isEmpty(passwordEditText.getText())) {
+            passwordEditText.setError("Password is required");
+            //return;
+        }
+        return false;
     }
 }
