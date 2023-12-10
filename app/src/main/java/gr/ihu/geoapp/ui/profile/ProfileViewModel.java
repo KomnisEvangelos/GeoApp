@@ -1,4 +1,4 @@
-package gr.ihu.geoapp.ui.notifications;
+package gr.ihu.geoapp.ui.profile;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

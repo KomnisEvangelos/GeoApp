@@ -1,33 +1,36 @@
 package gr.ihu.geoapp.ui.signup;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
-import gr.ihu.geoapp.Managers.Validator;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
+
+import gr.ihu.geoapp.managers.Validator;
+import gr.ihu.geoapp.models.users.RegularUser;
 import gr.ihu.geoapp.databinding.ActivityRegisterBinding;
+import gr.ihu.geoapp.ui.signin.SignInActivity;
 
 public class RegisterActivity extends AppCompatActivity {
 
-//    private TextInputEditText fullNameTextInput;
-//    private TextInputEditText emailTextInput;
-//    private TextInputEditText passwordTextInput;
-//    private TextInputEditText conPasswordTextInput;
-//    private TextInputEditText birthDateTextInput;
-//    private TextInputEditText professionTextInput;
-//    private TextInputEditText diplomaTextInput;
-    private EditText fullName;
-    private EditText email;
-    private EditText password;
-    private EditText conPassword;
-    private EditText birthDate;
-    private EditText profession;
-    private EditText diploma;
+
+    private EditText fullNameEditText;
+    private EditText emailEditText;
+    private EditText passwordEditText;
+    private EditText passwordConfirmEditText;
+    private EditText birthDateEditText;
+    private EditText professionEditText;
+    private EditText diplomaEditText;
     ProgressBar progressBar;
     private ActivityRegisterBinding binding;
     private RegisterViewModel registerViewModel;
@@ -35,7 +38,6 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_register);
 
         registerViewModel =
                 new ViewModelProvider(this).get(RegisterViewModel.class);
@@ -44,36 +46,54 @@ public class RegisterActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        fullName = binding.fullNameEditText;
-        email = binding.emailEditText;
-        password = binding.passwordEditText;
+        fullNameEditText = binding.fullNameEditText;
+        emailEditText = binding.emailEditText;
+        passwordEditText = binding.passwordEditText;
         progressBar = binding.progressBar;
-        conPassword = binding.conPasswordEditText;
-        birthDate = binding.birthDateEditText;
-        profession = binding.professionEditText;
-        diploma = binding.diplomaEditText;
+        passwordConfirmEditText = binding.conPasswordEditText;
+        birthDateEditText = binding.birthDateEditText;
+        professionEditText = binding.professionEditText;
+        diplomaEditText = binding.diplomaEditText;
 
         Button registerButton = binding.buttonRegister;
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                   //final String fullName = fullNameTextInput.getText().toString();
-                  //final String email = emailTextInput.getText().toString().trim();
-                  //String password = passwordTextInput.getText().toString().trim();
-                  // String conPassword = conPasswordTextInput.getText().toString();
-
-
-
-
-                if (Validator.validateName(fullName) && Validator.validateEmail(email) && Validator.validatePassword(password)) {
-                       //Successful register TODO
-                } else {
-                        //Fail register TODO
-                }
-
-
                 progressBar.setVisibility(View.VISIBLE);
 
+                if (Validator.validateName(fullNameEditText) && Validator.validateEmail(emailEditText) && Validator.validatePassword(passwordEditText)) {
+                       //Successful register TODO
+                    String newUserEmail = emailEditText.getText().toString().trim();
+                    String newUserPassword = passwordEditText.getText().toString().trim();
+
+                    RegularUser user = RegularUser.getInstance();
+
+                    user.setEmail(newUserEmail);
+                    user.setPassword(newUserPassword);
+
+                    user.register().addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
+                            Toast.makeText(getApplicationContext(),"Register Successful",Toast.LENGTH_SHORT).show();
+                            navigateToSignInActivity();
+                            progressBar.setVisibility(View.GONE);
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(),"Register failed. Try again.",Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
+
+                        }
+                    });
+
+                    navigateToSignInActivity();
+                } else {
+                    Toast.makeText(getApplicationContext(),"Check for errors",Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+
+                }
 
           }
         });
@@ -82,9 +102,16 @@ public class RegisterActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(getApplicationContext().SignIn.class));
+                navigateToSignInActivity();
             }
         });
+    }
+
+    private void navigateToSignInActivity(){
+        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+        startActivity(intent);
+        finish();
+
     }
 
 }
