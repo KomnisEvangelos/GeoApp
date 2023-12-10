@@ -1,10 +1,7 @@
-package gr.ihu.geoapp.Managers;
+package gr.ihu.geoapp.managers;
 
-import android.content.Context;
 import android.text.TextUtils;
 import android.widget.EditText;
-
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -72,12 +69,12 @@ public class Validator {
 
         if (TextUtils.isEmpty(emailEditText.getText())) {
             emailEditText.setError("Email is required");
-            //return;
+            return false;
         }
         if (TextUtils.isEmpty(passwordEditText.getText())) {
             passwordEditText.setError("Password is required");
-            //return;
+            return false;
         }
-        return false;
+        return true;
     }
 }
