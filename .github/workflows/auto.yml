@@ -22,9 +22,15 @@ jobs:
     - name: Grant execute permissions to gradlew
       run: chmod +x ./gradlew
 
+    - name: Print Gradle Version
+      run: ./gradlew --version
+
     - name: Build with Gradle
       run: |
         ./gradlew assembleRelease
+
+    - name: Print APK List
+      run: ls -l app/build/outputs/apk/release
 
     - name: Upload Release APK
       uses: actions/upload-artifact@v2
