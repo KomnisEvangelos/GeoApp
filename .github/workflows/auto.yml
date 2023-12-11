@@ -1,0 +1,80 @@
+name: Build and Release APK
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '17'
+
+    - name: Grant execute permissions to gradlew
+      run: chmod +x ./gradlew
+
+    - name: Print Gradle Version
+      run: ./gradlew --version
+
+    - name: Build with Gradle
+      run: |
+        ./gradlew assembleRelease
+
+    - name: Print APK List
+      run: ls -l app/build/outputs/apk/release
+
+    - name: Upload Release APK
+      uses: actions/upload-artifact@v2
+      with:
+        name: release-apk
+        path: app/build/outputs/apk/release/app-release.apk
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Download Release APK
+      uses: actions/download-artifact@v2
+      with:
+        name: release-apk
+
+    - name: Check and set execute permissions
+      run: |
+        ls -l ./gradlew
+        chmod +x ./gradlew
+        ls -l ./gradlew
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.sha }}
+        release_name: Release ${{ github.sha }}
+        body: |
+          Changes in this release.
+
+    - name: Upload APK to Release
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./app/build/outputs/apk/release/app-release.apk
+        asset_name: app-release.apk
+        asset_content_type: application/vnd.android.package-archive

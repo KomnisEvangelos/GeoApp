@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import gr.ihu.geoapp.databinding.FragmentProfileBinding;
+import gr.ihu.geoapp.ui.profile.ProfileViewModel;
 
 public class ProfileFragment extends Fragment {
 
@@ -49,10 +50,6 @@ public class ProfileFragment extends Fragment {
         emailTextView.setText(dummyEmail);
         birthdayTextView.setText(dummyBirthday);
         occupationTextView.setText(dummyOccupation);
-
-
-        //final TextView textView = binding.textNotifications;
-       // profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         return root;
     }
