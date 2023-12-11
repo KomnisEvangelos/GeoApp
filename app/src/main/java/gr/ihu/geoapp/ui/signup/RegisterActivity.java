@@ -61,7 +61,8 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
 
-                if (Validator.validateName(fullNameEditText) && Validator.validateEmail(emailEditText) && Validator.validatePassword(passwordEditText)) {
+                if (Validator.validateName(fullNameEditText) && Validator.validateEmail(emailEditText) && Validator.validatePassword(passwordEditText)
+                     && Validator.validateBirth(birthDateEditText) && Validator.validateProfession(professionEditText) && Validator.validateDiploma(diplomaEditText)) {
                        //Successful register TODO
                     String newUserEmail = emailEditText.getText().toString().trim();
                     String newUserPassword = passwordEditText.getText().toString().trim();
