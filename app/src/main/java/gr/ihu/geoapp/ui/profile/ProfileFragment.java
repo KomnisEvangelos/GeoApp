@@ -1,9 +1,11 @@
-package gr.ihu.geoapp.ui.notifications;
+package gr.ihu.geoapp.ui.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,7 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import gr.ihu.geoapp.databinding.FragmentProfileBinding;
-import gr.ihu.geoapp.ui.profile.ProfileViewModel;
+import gr.ihu.geoapp.models.users.RegularUser;
+import gr.ihu.geoapp.ui.signin.SignInActivity;
 
 public class ProfileFragment extends Fragment {
 
@@ -21,7 +24,8 @@ public class ProfileFragment extends Fragment {
     private TextView nameTextView;
     private TextView emailTextView;
     private TextView birthdayTextView;
-    private TextView occupationTextView;
+    private TextView professionTextView;
+    private TextView diplomaTextView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -36,20 +40,35 @@ public class ProfileFragment extends Fragment {
         nameTextView = binding.nameTextView;
         emailTextView = binding.emailTextView;
         birthdayTextView = binding.birthdayTextView;
-        occupationTextView = binding.occupationTextView;
+        professionTextView = binding.professionTextView;
+        diplomaTextView = binding.diplomaTextView;
 
         // Dummy data
         String dummyName = "John Doe";
         String dummyEmail = "john.doe@example.com";
         String dummyBirthday = "January 1, 1990";
         String dummyOccupation = "Software Developer";
+        String dummyDiploma = "Computer Science";
         String dummyProfilePictureName = "baseline_person_24";
 
         // Update UI with dummy data
         nameTextView.setText(dummyName);
         emailTextView.setText(dummyEmail);
         birthdayTextView.setText(dummyBirthday);
-        occupationTextView.setText(dummyOccupation);
+        professionTextView.setText(dummyOccupation);
+        diplomaTextView.setText(dummyDiploma);
+
+
+        Button logoutButton = binding.logoutButton;
+        logoutButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                RegularUser.getInstance().logout();
+                Intent intent = new Intent(getActivity(), SignInActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
 
         return root;
     }
