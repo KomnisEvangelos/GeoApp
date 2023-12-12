@@ -35,6 +35,7 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+
         // Accessing views using View Binding
         profileImageView = binding.profileImageView;
         nameTextView = binding.nameTextView;
@@ -43,21 +44,15 @@ public class ProfileFragment extends Fragment {
         professionTextView = binding.professionTextView;
         diplomaTextView = binding.diplomaTextView;
 
-        // Dummy data
-        String dummyName = "John Doe";
-        String dummyEmail = "john.doe@example.com";
-        String dummyBirthday = "January 1, 1990";
-        String dummyOccupation = "Software Developer";
-        String dummyDiploma = "Computer Science";
-        String dummyProfilePictureName = "baseline_person_24";
+        // Fetch user data from RegularUser instance
+        RegularUser user = RegularUser.getInstance();
 
-        // Update UI with dummy data
-        nameTextView.setText(dummyName);
-        emailTextView.setText(dummyEmail);
-        birthdayTextView.setText(dummyBirthday);
-        professionTextView.setText(dummyOccupation);
-        diplomaTextView.setText(dummyDiploma);
-
+        // Update UI with fetched data
+        nameTextView.setText(user.getFullName());
+        emailTextView.setText(user.getEmail());
+        birthdayTextView.setText(user.getDateOfBirth());
+        professionTextView.setText(user.getProfession());
+        diplomaTextView.setText(user.getDiploma());
 
         Button logoutButton = binding.logoutButton;
         logoutButton.setOnClickListener(new View.OnClickListener(){

@@ -1,12 +1,10 @@
 package gr.ihu.geoapp.models.users;
 
 
-import android.content.Intent;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import gr.ihu.geoapp.managers.Repository;
-import gr.ihu.geoapp.ui.signin.SignInActivity;
 
 public class RegularUser implements User{
 
@@ -48,6 +46,7 @@ public class RegularUser implements User{
 
     @Override
     public void logout() {
+
         FirebaseAuth.getInstance().signOut();
     }
 

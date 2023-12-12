@@ -66,11 +66,19 @@ public class RegisterActivity extends AppCompatActivity {
                        //Successful register TODO
                     String newUserEmail = emailEditText.getText().toString().trim();
                     String newUserPassword = passwordEditText.getText().toString().trim();
+                    String newUserFullName = fullNameEditText.getText().toString().trim();
+                    String newUserBirthDate = birthDateEditText.getText().toString().trim();
+                    String newUserProfession = professionEditText.getText().toString().trim();
+                    String newUserDiploma = diplomaEditText.getText().toString().trim();
 
                     RegularUser user = RegularUser.getInstance();
 
                     user.setEmail(newUserEmail);
                     user.setPassword(newUserPassword);
+                    user.setFullName(newUserFullName);
+                    user.setDateOfBirth(newUserBirthDate);
+                    user.setProfession(newUserProfession);
+                    user.setDiploma(newUserDiploma);
 
                     user.register().addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
