@@ -43,7 +43,7 @@ jobs:
    #       export VERSION="1.0.${{ github.run_number }}"
     #      echo "VERSION=1.0.${{ github.run_number }}" >> $GITHUB_ENV
 
-    #- name: Build docker
+#   - name: Build docker
     #  run: |
 #        docker build -t ghcr.io/npetalid/app:latest -t ghcr.io/npetalid/app:1.0.${{ github.run_number }} .
 #        docker push --all-tags ghcr.io/npetalid/app
