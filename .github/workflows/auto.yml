@@ -35,10 +35,10 @@ jobs:
         echo $LAST_TAG
         echo '# Release notes (${{ env.VERSION }})'  > LATEST.md
         echo '## Feats' >> LATEST.md
-        git log --no-merges --grep='^feat' $LAST_TAG..HEAD  --format=%B >> LATEST.md
+        git log --no-merges --grep='^feat:' $LAST_TAG..HEAD  --format=%B >> LATEST.md
         echo '' >> LATEST.md
         echo '## Bugfixes' >> LATEST.md
-        git log --no-merges --grep='^fix'  $LAST_TAG..HEAD  --format=%B >> LATEST.md
+        git log --no-merges --grep='^fix:'  $LAST_TAG..HEAD  --format=%B >> LATEST.md
         echo '' >> LATEST.md
         echo '---' >> LATEST.md
         if ! [ -e CHANGELOG.md ] ; then
