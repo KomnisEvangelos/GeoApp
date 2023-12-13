@@ -1,5 +1,9 @@
 package gr.ihu.geoapp.models.users;
 
+
+
+import com.google.firebase.auth.FirebaseAuth;
+
 import gr.ihu.geoapp.managers.Repository;
 
 public class RegularUser implements User{
@@ -42,8 +46,9 @@ public class RegularUser implements User{
 
     @Override
     public void logout() {
-
+        FirebaseAuth.getInstance().signOut();
     }
+
 
     @Override
     public void fetchData() {
