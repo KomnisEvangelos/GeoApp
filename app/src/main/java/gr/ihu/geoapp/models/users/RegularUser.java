@@ -46,7 +46,6 @@ public class RegularUser implements User{
 
     @Override
     public void logout() {
-
         FirebaseAuth.getInstance().signOut();
     }
 

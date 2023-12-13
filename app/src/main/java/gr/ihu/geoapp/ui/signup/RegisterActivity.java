@@ -63,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (Validator.validateName(fullNameEditText) && Validator.validateEmail(emailEditText) && Validator.validatePassword(passwordEditText)
                      && Validator.validateBirth(birthDateEditText) && Validator.validateProfession(professionEditText) && Validator.validateDiploma(diplomaEditText)) {
-                       //Successful register TODO
+
                     String newUserEmail = emailEditText.getText().toString().trim();
                     String newUserPassword = passwordEditText.getText().toString().trim();
                     String newUserFullName = fullNameEditText.getText().toString().trim();
@@ -86,6 +86,14 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(),"Register Successful",Toast.LENGTH_SHORT).show();
                             navigateToSignInActivity();
                             progressBar.setVisibility(View.GONE);
+
+                            // Clear user data
+                            user.setEmail(null);
+                            user.setPassword(null);
+                            user.setFullName(null);
+                            user.setDateOfBirth(null);
+                            user.setProfession(null);
+                            user.setDiploma(null);
 
                         }
                     }).addOnFailureListener(new OnFailureListener() {

@@ -8,10 +8,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Optional;
 
 import gr.ihu.geoapp.databinding.FragmentProfileBinding;
 import gr.ihu.geoapp.models.users.RegularUser;
@@ -35,8 +40,6 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-
-        // Accessing views using View Binding
         profileImageView = binding.profileImageView;
         nameTextView = binding.nameTextView;
         emailTextView = binding.emailTextView;
@@ -44,15 +47,14 @@ public class ProfileFragment extends Fragment {
         professionTextView = binding.professionTextView;
         diplomaTextView = binding.diplomaTextView;
 
-        // Fetch user data from RegularUser instance
         RegularUser user = RegularUser.getInstance();
 
-        // Update UI with fetched data
-        nameTextView.setText(user.getFullName());
-        emailTextView.setText(user.getEmail());
-        birthdayTextView.setText(user.getDateOfBirth());
-        professionTextView.setText(user.getProfession());
-        diplomaTextView.setText(user.getDiploma());
+
+        nameTextView.setText(Optional.ofNullable(user.getFullName()).orElse("No data found"));
+        emailTextView.setText(Optional.ofNullable(user.getEmail()).orElse("No data found"));
+        birthdayTextView.setText(Optional.ofNullable(user.getDateOfBirth()).orElse("No data found"));
+        professionTextView.setText(Optional.ofNullable(user.getProfession()).orElse("No data found"));
+        diplomaTextView.setText(Optional.ofNullable(user.getDiploma()).orElse("No data found"));
 
         Button logoutButton = binding.logoutButton;
         logoutButton.setOnClickListener(new View.OnClickListener(){
@@ -62,6 +64,15 @@ public class ProfileFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), SignInActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+            }
+        });
+
+        FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() == null) {
+                    Toast.makeText(getActivity(), "User is logged out", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
