@@ -8,7 +8,7 @@ This project was developed as part of the "Software engineering" course at Inter
 TBA
 
 # Usage Instructions
-1. To run this Android calculator app, follow these steps:
+1. To run this Android app, follow these steps:
 2. Download or clone the code from this GitHub repository.
 3. Open the code in Android Studio.
 4. Build and run the app on your Android device or emulator.
