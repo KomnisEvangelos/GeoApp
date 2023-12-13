@@ -25,7 +25,7 @@ jobs:
         git config user.name "Evangelos Komnis"
 
     - name: Echo build number
-      run: echo ${{github.run_number}}
+      run: echo ${{ github.run_number }}
 
     - name: "Build Changelog"
       id: build_changelog
@@ -48,20 +48,9 @@ jobs:
         git add CHANGELOG.md
         git commit -m 'chore: Updated CHANGELOG.md'
 
-    - name: "Create Release"
-      id: create_release
-      uses: ncipollo/release-action@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag: myrel-${{ github.run_number }}
-        commit: "master"
-        bodyFile: "CHANGELOG.md"
-        artifacts: "CHANGELOG.md"
-        draft: false
-        prerelease: false
-
-    - name: Tag and Push
+    - name: "Create and Push Tag"
       run: |
-        git tag "myrel-${{ github.run_number }}"
+        export VERSION="1.0.${{ github.run_number }}"
+        echo "VERSION=1.0.${{ github.run_number }}" >> $GITHUB_ENV
+        git tag -a "myrel-${{ github.run_number }}" -m "Release $VERSION"
         git push origin "myrel-${{ github.run_number }}"
