@@ -14,14 +14,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-  #  - name: Login to GitHub Container Registry
-   #   uses: docker/login-action@v3
-    #  with:
-     #       registry: ghcr.io
-      #      username: ${{ github.actor }}
-       #     password: ${{ secrets.GITHUB_TOKEN }}
-
-
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
@@ -34,19 +26,6 @@ jobs:
 
     - name: Echo build number
       run: echo ${{github.run_number}}
-
-   # - name: Run build script
-   #   run: mvn clean install
-
-    #- name: Set Version
-  #    run: |
-   #       export VERSION="1.0.${{ github.run_number }}"
-    #      echo "VERSION=1.0.${{ github.run_number }}" >> $GITHUB_ENV
-
-#   - name: Build docker
-    #  run: |
-#        docker build -t ghcr.io/npetalid/app:latest -t ghcr.io/npetalid/app:1.0.${{ github.run_number }} .
-#        docker push --all-tags ghcr.io/npetalid/app
 
     - name: "Build Changelog"
       id: build_changelog
@@ -68,15 +47,14 @@ jobs:
         cat CHANGELOG.md >> LATEST.md && mv LATEST.md CHANGELOG.md
         git add CHANGELOG.md
         git commit -m 'chore: Updated CHANGELOG.md'
-        git push
 
     - name: "Create Release"
       id: create_release
       uses: ncipollo/release-action@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag: myrel-${{ env.VERSION }}
+        tag: myrel-${{ github.run_number }}
         commit: "master"
         bodyFile: "CHANGELOG.md"
         artifacts: "CHANGELOG.md"
@@ -85,5 +63,5 @@ jobs:
 
     - name: Tag and Push
       run: |
-        git tag "myrel-${{ env.VERSION }}"
-        git push origin "myrel-${{ env.VERSION }}"
+        git tag "myrel-${{ github.run_number }}"
+        git push origin "myrel-${{ github.run_number }}"
