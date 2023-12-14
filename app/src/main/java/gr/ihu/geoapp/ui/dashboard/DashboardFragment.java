@@ -21,10 +21,14 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
+import gr.ihu.geoapp.R;
 import gr.ihu.geoapp.databinding.FragmentDashboardBinding;
+import androidx.databinding.DataBindingUtil;
+import gr.ihu.geoapp.databinding.DataLayoutBinding;
 
 public class DashboardFragment extends Fragment {
     private FragmentDashboardBinding binding;
+    private DataLayoutBinding dataLayoutBinding;
     private ImageView imageView;
     public static final int GALLERY_REQUEST_CODE = 1000;
     public static final int CAMERA_REQUEST_CODE = 2000;
@@ -41,7 +45,8 @@ public class DashboardFragment extends Fragment {
         dashboardViewModel =
                 new ViewModelProvider(this).get(DashboardViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentDashboardBinding.inflate(inflater,container, false);
+        dataLayoutBinding = binding.include;
         View root = binding.getRoot();
 
         final ImageView imageView = binding.image;
@@ -60,14 +65,14 @@ public class DashboardFragment extends Fragment {
 
         Button addButton= binding.addButton;
         EditText tagEditText= binding.tagEditText;
-        EditText descrEditText = binding.descrEditText;
-        EditText titleEditText = binding.titleEditText;
-        Button addDescrBtn = binding.addDescrBtn;
-        Button saveDescrBtn = binding.saveDescrBtn;
-        Button editDescrBtn = binding.editDescrBtn;
-        Button addTitleBtn = binding.addTitleBtn;
-        Button saveTitleBtn = binding.saveTitleBtn;
-        Button editTitleBtn = binding.editTitleBtn;
+        EditText descrEditText = dataLayoutBinding.descrEditText;
+        EditText titleEditText = dataLayoutBinding.titleEditText;
+        Button addDescrBtn = dataLayoutBinding.addDescrBtn;
+        Button saveDescrBtn = dataLayoutBinding.saveDescrBtn;
+        Button editDescrBtn = dataLayoutBinding.editDescrBtn;
+        Button addTitleBtn = dataLayoutBinding.addTitleBtn;
+        Button saveTitleBtn = dataLayoutBinding.saveTitleBtn;
+        Button editTitleBtn = dataLayoutBinding.editTitleBtn;
 
         addTitleBtn.setVisibility(View.GONE);
         addDescrBtn.setVisibility(View.GONE);
@@ -150,8 +155,10 @@ public class DashboardFragment extends Fragment {
                 descrEditText.setTextIsSelectable(true);
                 descrEditText.setVisibility(View.VISIBLE);
                 saveDescrBtn.setVisibility(View.GONE);
-                editDescrBtn.setVisibility(View.VISIBLE);
+                editTitleBtn.setVisibility(View.VISIBLE); //editDescrBtn was here
                 addDescrBtn.setVisibility(View.GONE);
+
+                descrEditText.setVisibility(View.GONE);
             }
         });
 
@@ -164,8 +171,10 @@ public class DashboardFragment extends Fragment {
                 titleEditText.setTextIsSelectable(true);
                 titleEditText.setVisibility(View.VISIBLE);
                 saveTitleBtn.setVisibility(View.GONE);
-                editTitleBtn.setVisibility(View.VISIBLE);
+                editDescrBtn.setVisibility(View.VISIBLE); // editTitlebtn was here
                 addTitleBtn.setVisibility(View.GONE);
+
+                titleEditText.setVisibility((View.GONE));
             }
         });
 
@@ -178,6 +187,8 @@ public class DashboardFragment extends Fragment {
                 descrEditText.requestFocus();
                 saveDescrBtn.setVisibility(View.VISIBLE);
                 editDescrBtn.setVisibility(View.GONE);
+
+                descrEditText.setVisibility(View.VISIBLE);
             }
         });
 
@@ -190,6 +201,8 @@ public class DashboardFragment extends Fragment {
                 titleEditText.requestFocus();
                 saveTitleBtn.setVisibility(View.VISIBLE);
                 editTitleBtn.setVisibility(View.GONE);
+
+                titleEditText.setVisibility((View.VISIBLE));
             }
         });
 
@@ -208,16 +221,16 @@ public class DashboardFragment extends Fragment {
         if (requestCode == GALLERY_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
             Uri selectedImageUri = data.getData();
             dashboardViewModel.setImagePath(selectedImageUri.toString());
-            binding.addTitleBtn.setVisibility(View.VISIBLE);
-            binding.addDescrBtn.setVisibility(View.VISIBLE);
+            dataLayoutBinding.addTitleBtn.setVisibility(View.VISIBLE);
+            dataLayoutBinding.addDescrBtn.setVisibility(View.VISIBLE);
             binding.buttonUpload.setVisibility(View.GONE);
         } else if (requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             Bundle extras = data.getExtras();
                 if (data != null) {
                     Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
                     dashboardViewModel.setImageBitmap(imageBitmap);
-                    binding.addTitleBtn.setVisibility(View.VISIBLE);
-                    binding.addDescrBtn.setVisibility(View.VISIBLE);
+                    dataLayoutBinding.addTitleBtn.setVisibility(View.VISIBLE);
+                    dataLayoutBinding.addDescrBtn.setVisibility(View.VISIBLE);
                     binding.buttonUpload.setVisibility(View.GONE);
                 }
         }

@@ -3,15 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:fillViewport="true"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="gr.ihu.geoapp.ui.dashboard.DashboardFragment">
+
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity = "center_horizontal"
-    android:orientation = "vertical"
-   tools:context="gr.ihu.geoapp.ui.dashboard.DashboardFragment"
-    >
+    android:layout_height="fill_parent">
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
@@ -58,94 +57,19 @@
         android:layout_below="@+id/image"
         android:layout_centerHorizontal="true" />
 
-    <EditText
-        android:id="@+id/titleEditText"
+     <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="16dp"
-        android:layout_below="@+id/image"
-        android:inputType="text"
-        android:hint="Add Title"
-        android:visibility="gone"
-        />
+        android:layout_height="fill_parent"
+        android:layout_below="@id/button_Upload">
 
-    <EditText
-        android:id="@+id/descrEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_below="@id/titleEditText"
-        android:inputType="text"
-        android:hint="Add Description.."
-        android:visibility="gone"
-        />
 
-    <Button
-        android:id="@+id/addDescrBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/editTitleBtn"
-        android:text="Add Description"
-        android:visibility="gone"
-        />
+        <include
+            android:id="@+id/include"
+            layout="@layout/data_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-    <Button
-        android:id="@+id/addTitleBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/descrEditText"
-        android:text="Add Title"
-        android:visibility="gone"
-        />
-
-    <Button
-        android:id="@+id/saveTitleBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/addTitleBtn"
-        android:layout_toRightOf="@+id/addTitleBtn"
-        android:layout_marginTop="16dp"
-        android:text="Save Title"
-        android:visibility="gone"
-        />
-
-    <Button
-        android:id="@+id/saveDescrBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/addDescrBtn"
-        android:layout_toRightOf="@+id/addDescrBtn"
-        android:layout_marginTop="16dp"
-        android:text="Save Description"
-        android:visibility="gone"
-        />
-
-    <Button
-        android:id="@+id/editTitleBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/addTitleBtn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="Edit Title"
-        android:visibility="gone"
-        />
-
-    <Button
-        android:id="@+id/editDescrBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/addDescrBtn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="Edit Description"
-        android:visibility="gone"
-        />
-
+    </RelativeLayout>
 </RelativeLayout>
 </ScrollView>
