@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class Validator {
 
-    private static final String NAME_PATTERN = "^[a-zA-Z]+$";
+    private static final String NAME_PATTERN = "^[A-Z][a-z]{2,}\\s[A-Z][a-zA-Z]{2,}$";
     private static final String EMAIL_PATTERN =
             "^[A-Za-z0-9\\+\\_.\\-]+@(gmail|outlook|yahoo|hotmail)\\.(com|gr)$";
     private static final String PASSWORD_PATTERN =
@@ -25,7 +25,7 @@ public class Validator {
             fullNameEditText.setError("Full name is Required");
             return false;
         } else if (!matcher.matches()) {
-            fullNameEditText.setError("Give your full name without numbers");
+            fullNameEditText.setError("Give your full name without numbers and first letter of name and last name should be capital");
             return false;
         } else {
             fullNameEditText.setError(null);
@@ -66,6 +66,25 @@ public class Validator {
             return true;
         }
     }
+
+    /*public static boolean validateConPassword(EditText conPasswordEditText){
+        String Input = (conPasswordEditText != null) ? conPasswordEditText.getText().toString().trim() : "";
+        Pattern pattern = Pattern.compile(validatePassword());
+        Matcher matcher = pattern.matcher(Input);
+        
+        if (Input.isEmpty()){
+            conPasswordEditText.setError("Confirm your password");
+            return false;
+        } else if (!matcher.matches()) {
+            conPasswordEditText.setError("Passwords are not matching");
+            return false;
+        }else {
+            conPasswordEditText.setError(null);
+            return true;
+        }
+
+    }*/
+
     public static boolean validateBirth(EditText birthDateEditText) {
         String Input = (birthDateEditText != null) ? birthDateEditText.getText().toString().trim() :"";
         Pattern pattern = Pattern.compile(BIRTH_PATTERN);
