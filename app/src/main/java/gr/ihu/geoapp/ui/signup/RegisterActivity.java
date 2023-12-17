@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 
+import gr.ihu.geoapp.managers.Repository;
 import gr.ihu.geoapp.managers.Validator;
 import gr.ihu.geoapp.models.users.RegularUser;
 import gr.ihu.geoapp.databinding.ActivityRegisterBinding;
@@ -34,7 +35,6 @@ public class RegisterActivity extends AppCompatActivity {
     ProgressBar progressBar;
     private ActivityRegisterBinding binding;
     private RegisterViewModel registerViewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +86,9 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(),"Register Successful",Toast.LENGTH_SHORT).show();
                             navigateToSignInActivity();
                             progressBar.setVisibility(View.GONE);
+
+                            Repository repository = new Repository();
+                            repository.uploadUserData(fullNameEditText,emailEditText,birthDateEditText,professionEditText,diplomaEditText);
 
                             // Clear user data
                             user.setEmail(null);

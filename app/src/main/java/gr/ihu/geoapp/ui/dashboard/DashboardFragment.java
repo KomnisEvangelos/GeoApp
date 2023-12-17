@@ -23,7 +23,6 @@ import com.google.android.material.chip.ChipGroup;
 
 import gr.ihu.geoapp.R;
 import gr.ihu.geoapp.databinding.FragmentDashboardBinding;
-import androidx.databinding.DataBindingUtil;
 import gr.ihu.geoapp.databinding.DataLayoutBinding;
 
 public class DashboardFragment extends Fragment {
