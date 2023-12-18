@@ -54,8 +54,16 @@
         android:layout_height="wrap_content"
         android:id="@+id/button_Upload"
         android:text="Upload Photo"
-        android:layout_below="@+id/image"
+        android:layout_below="@+id/sendPhotoBtn"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sendPhotoBtn"
+        android:text="Send Photo"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/image"/>
 
      <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -71,5 +79,6 @@
             android:layout_height="wrap_content"/>
 
     </RelativeLayout>
+
 </RelativeLayout>
 </ScrollView>

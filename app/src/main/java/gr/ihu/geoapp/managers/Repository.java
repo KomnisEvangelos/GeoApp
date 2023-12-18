@@ -5,12 +5,9 @@ import android.widget.EditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.UUID;
-
 import gr.ihu.geoapp.models.users.RegularUser;
 
 public class Repository {
-
     private FirebaseAuth auth;
 
 
@@ -43,5 +40,9 @@ public class Repository {
         user.setDiploma(diploma);
 
         FirebaseDatabase.getInstance().getReference("users").child(auth.getUid()).setValue(user);
+    }
+
+    public String getID(){
+        return auth.getUid();
     }
 }

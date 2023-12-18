@@ -1,16 +1,19 @@
 package gr.ihu.geoapp.ui.dashboard;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,17 +21,23 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.ByteArrayOutputStream;
 
 import gr.ihu.geoapp.R;
 import gr.ihu.geoapp.databinding.FragmentDashboardBinding;
 import gr.ihu.geoapp.databinding.DataLayoutBinding;
+import gr.ihu.geoapp.managers.Repository;
 
 public class DashboardFragment extends Fragment {
     private FragmentDashboardBinding binding;
     private DataLayoutBinding dataLayoutBinding;
-    private ImageView imageView;
     public static final int GALLERY_REQUEST_CODE = 1000;
     public static final int CAMERA_REQUEST_CODE = 2000;
     private DashboardViewModel dashboardViewModel;
@@ -72,6 +81,7 @@ public class DashboardFragment extends Fragment {
         Button addTitleBtn = dataLayoutBinding.addTitleBtn;
         Button saveTitleBtn = dataLayoutBinding.saveTitleBtn;
         Button editTitleBtn = dataLayoutBinding.editTitleBtn;
+        Button sendPhotoBtn = binding.sendPhotoBtn;
 
         addTitleBtn.setVisibility(View.GONE);
         addDescrBtn.setVisibility(View.GONE);
@@ -107,6 +117,24 @@ public class DashboardFragment extends Fragment {
             if (imageBitmap != null) {
                 imageView.setImageBitmap(imageBitmap);
 
+            }
+        });
+
+        sendPhotoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (imageView != null) {
+                    String imagePath = dashboardViewModel.getImagePath().getValue();
+                    Bitmap imageBitmap = dashboardViewModel.getImageBitmap().getValue();
+
+                    if (imagePath != null) {
+                        uploadUriToFirebase(Uri.parse(imagePath));
+                    } else if (imageBitmap != null) {
+                        uploadBitmapToFirebase(imageBitmap);
+                    } else {
+                        Toast.makeText(getContext(), "Please upload a photo", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
 
@@ -213,6 +241,41 @@ public class DashboardFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+    private void uploadUriToFirebase(Uri imageUri){
+        Repository repository = new Repository();
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("images").child(repository.getID()).child(imageUri.getLastPathSegment());
+
+        storageReference.putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
+            Toast.makeText(getContext(), "Photo uploaded", Toast.LENGTH_SHORT).show();
+        })
+                .addOnFailureListener(e ->{
+                    Toast.makeText(getContext(), "Upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void uploadBitmapToFirebase(Bitmap imageBitmap){
+        Uri tempUri = getImageUri(getContext(), imageBitmap);
+
+        if (tempUri != null) {
+            Repository repository = new Repository();
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("images").child(repository.getID()).child(tempUri.getLastPathSegment());
+
+            storageReference.putFile(tempUri).addOnSuccessListener(taskSnapshot -> {
+                Toast.makeText(getContext(), "Photo uploaded", Toast.LENGTH_SHORT).show();
+            }).addOnFailureListener(e -> {
+                Toast.makeText(getContext(), "Upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            });
+        }
+    }
+
+    private Uri getImageUri(Context context, Bitmap bitmap) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Title", null);
+        return Uri.parse(path);
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
