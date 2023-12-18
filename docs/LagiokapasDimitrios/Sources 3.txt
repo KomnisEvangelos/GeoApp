@@ -1,0 +1,19 @@
+πληροφορίες σχετικά με το Firebase
+
+Cloud Storage for Firebase
+https://firebase.google.com/docs/storage
+
+Upload files with Cloud Storage on Android
+https://firebase.google.com/docs/storage/android/upload-files#java
+
+Upload Image to Firebase in Android Studio
+https://www.youtube.com/watch?v=g2Iibnnqga0
+
+Download files with Cloud Storage on Android
+https://firebase.google.com/docs/storage/android/download-files
+
+Delete files with Cloud Storage on Android
+https://firebase.google.com/docs/storage/android/delete-files
+
+List files with Cloud Storage on Android
+https://firebase.google.com/docs/storage/android/list-files
