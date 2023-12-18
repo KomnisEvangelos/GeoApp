@@ -1,0 +1,10 @@
+Sources for firebase
+
+Upload image to firebase
+https://www.youtube.com/watch?v=DWIGAkYkpg8
+
+https://www.youtube.com/watch?v=VH_KyGf8Xno
+
+Cloud Storage for Firebase
+https://firebase.google.com/docs/storage
+
