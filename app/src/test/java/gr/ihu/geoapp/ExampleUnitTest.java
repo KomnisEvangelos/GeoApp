@@ -1,5 +1,6 @@
 package gr.ihu.geoapp;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -12,9 +13,14 @@ import gr.ihu.geoapp.managers.Repository;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
+    private Repository repository;
+
+    @Before
+    public void setup(){
+        repository = new Repository();
+    }
     @Test
     public void testCreateUser() {
-        Repository repository = new Repository();
         String testEmail = "test@example.com";
         String testPassword = "testpassword";
 
@@ -24,7 +30,6 @@ public class ExampleUnitTest {
 
     @Test
     public void testCheckUser() {
-        Repository repository = new Repository();
         String testEmail = "test@example.com";
         String testPassword = "testpassword";
 
