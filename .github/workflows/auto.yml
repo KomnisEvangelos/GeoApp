@@ -1,0 +1,56 @@
+name: TestBuild
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '**'
+      - '!CHANGELOG.md'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Github config
+      run: |
+        git config user.email "evankomn@ihu.gr"
+        git config user.name "Evangelos Komnis"
+
+    - name: Echo build number
+      run: echo ${{ github.run_number }}
+
+    - name: "Build Changelog"
+      id: build_changelog
+      run: |
+        git fetch --tags
+        export LAST_TAG=`git for-each-ref 'refs/tags/myrel-*'  --sort=-authordate  --format='%(refname:short)' --count=1`
+        echo $LAST_TAG
+        echo '# Release notes (${{ env.VERSION }})'  > LATEST.md
+        echo '## Feats' >> LATEST.md
+        git log --no-merges --grep='^feat:' $LAST_TAG..HEAD  --format=%B >> LATEST.md
+        echo '' >> LATEST.md
+        echo '## Bugfixes' >> LATEST.md
+        git log --no-merges --grep='^fix:'  $LAST_TAG..HEAD  --format=%B >> LATEST.md
+        echo '' >> LATEST.md
+        echo '---' >> LATEST.md
+        if ! [ -e CHANGELOG.md ] ; then
+          touch CHANGELOG.md
+        fi
+        cat CHANGELOG.md >> LATEST.md && mv LATEST.md CHANGELOG.md
+        git add CHANGELOG.md
+        git commit -m 'chore: Updated CHANGELOG.md'
+
+    - name: "Create and Push Tag"
+      run: |
+        export VERSION="1.0.${{ github.run_number }}"
+        echo "VERSION=1.0.${{ github.run_number }}" >> $GITHUB_ENV
+        git tag -a "myrel-${{ github.run_number }}" -m "Release $VERSION"
+        git push origin "myrel-${{ github.run_number }}"

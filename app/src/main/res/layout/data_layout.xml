@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="gr.ihu.geoapp.ui.dashboard.DashboardFragment">
+
+
+
+    <GridLayout
+        android:id="@+id/firstGrid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:rowCount="2"
+        android:columnCount="1">
+
+    <EditText
+        android:id="@+id/titleEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:inputType="text"
+        android:hint="Add Title"
+        android:visibility="gone"
+        />
+
+
+    <EditText
+        android:id="@+id/descrEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_below="@id/titleEditText"
+        android:inputType="text"
+        android:hint="Add Description.."
+        android:visibility="gone"
+        />
+
+    </GridLayout>
+
+    <GridLayout
+        android:id="@+id/secondgrid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:rowCount="1"
+        android:columnCount="1"
+        android:layout_below="@+id/firstGrid">
+
+    <Button
+        android:id="@+id/addDescrBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/editTitleBtn"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentRight="true"
+        android:text="Add Description"
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/addTitleBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/descrEditText"
+        android:layout_alignParentRight="true"
+        android:text="Add Title"
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/saveTitleBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/addTitleBtn"
+        android:layout_toRightOf="@+id/addTitleBtn"
+        android:layout_marginTop="16dp"
+        android:text="Save Title"
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/saveDescrBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/addDescrBtn"
+        android:layout_toRightOf="@+id/addDescrBtn"
+        android:layout_marginTop="16dp"
+        android:text="Save Description"
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/editTitleBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addTitleBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Edit Title"
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/editDescrBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addDescrBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentRight="true"
+        android:text="Edit Description"
+        android:visibility="gone"
+        />
+
+
+    </GridLayout>
+</RelativeLayout>
