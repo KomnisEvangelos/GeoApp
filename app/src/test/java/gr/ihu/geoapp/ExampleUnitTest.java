@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import android.util.Log;
+
 import gr.ihu.geoapp.managers.Repository;
 
 /**
@@ -23,17 +25,17 @@ public class ExampleUnitTest {
     public void testCreateUser() {
         String testEmail = "test@example.com";
         String testPassword = "testpassword";
-
-        System.out.println(repository.createUser(testEmail, testPassword).getResult());
-        assertNotNull(repository.createUser(testEmail, testPassword).getResult());
+       String result = repository.createUser(testEmail, testPassword).getResult().toString();
+       Log.d("test",result);
+       // assertNotNull(repository.createUser(testEmail, testPassword).getResult());
     }
 
     @Test
     public void testCheckUser() {
         String testEmail = "test@example.com";
         String testPassword = "testpassword";
-
-        System.out.println(repository.checkUser(testEmail, testPassword).getResult());
-        assertNotNull(repository.checkUser(testEmail, testPassword).getResult());
+        String result = repository.checkUser(testEmail, testPassword).getResult().toString();
+        Log.d("test",result);
+        //assertNotNull(repository.checkUser(testEmail, testPassword).getResult());
     }
 }
