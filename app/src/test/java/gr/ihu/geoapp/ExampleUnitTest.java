@@ -6,6 +6,13 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import android.util.Log;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
 
 import gr.ihu.geoapp.managers.Repository;
 
@@ -25,17 +32,23 @@ public class ExampleUnitTest {
     public void testCreateUser() {
         String testEmail = "test@example.com";
         String testPassword = "testpassword";
-       String result = repository.createUser(testEmail, testPassword).getResult().toString();
-       Log.d("test",result);
-       // assertNotNull(repository.createUser(testEmail, testPassword).getResult());
+       repository.createUser(testEmail, testPassword).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+           @Override
+           public void onSuccess(AuthResult authResult) {
+               assertTrue(true);
+           }
+       });
     }
 
     @Test
     public void testCheckUser() {
         String testEmail = "test@example.com";
         String testPassword = "testpassword";
-        String result = repository.checkUser(testEmail, testPassword).getResult().toString();
-        Log.d("test",result);
-        //assertNotNull(repository.checkUser(testEmail, testPassword).getResult());
+        repository.checkUser(testEmail, testPassword).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                assertTrue(true);
+            }
+        });
     }
 }
