@@ -18,13 +18,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -34,6 +34,7 @@ import gr.ihu.geoapp.R;
 import gr.ihu.geoapp.databinding.FragmentDashboardBinding;
 import gr.ihu.geoapp.databinding.DataLayoutBinding;
 import gr.ihu.geoapp.managers.Repository;
+import gr.ihu.geoapp.ui.dashboard.PhotoBinActivity.PhotoBinActivity;
 
 public class DashboardFragment extends Fragment {
     private FragmentDashboardBinding binding;
@@ -44,6 +45,9 @@ public class DashboardFragment extends Fragment {
     private ChipGroup chipGroup;
     private String currentDescription = "";
     private String currentTitle = "";
+    private FloatingActionButton fab;
+    private static final int PICK_PHOTO_REQUEST = 1;
+
 
 
 
@@ -58,6 +62,7 @@ public class DashboardFragment extends Fragment {
         View root = binding.getRoot();
 
         final ImageView imageView = binding.image;
+
         chipGroup = binding.chipGroup;
 //       // chipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
 //            @Override
@@ -82,6 +87,7 @@ public class DashboardFragment extends Fragment {
         Button saveTitleBtn = dataLayoutBinding.saveTitleBtn;
         Button editTitleBtn = dataLayoutBinding.editTitleBtn;
         Button sendPhotoBtn = binding.sendPhotoBtn;
+        fab = binding.fab;
 
         addTitleBtn.setVisibility(View.GONE);
         addDescrBtn.setVisibility(View.GONE);
@@ -90,7 +96,14 @@ public class DashboardFragment extends Fragment {
         saveTitleBtn.setVisibility(View.GONE);
         editTitleBtn.setVisibility(View.GONE);
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), PhotoBinActivity.class);
+                startActivityForResult(intent, PICK_PHOTO_REQUEST);
 
+            }
+        });
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -295,9 +308,18 @@ public class DashboardFragment extends Fragment {
                     dataLayoutBinding.addDescrBtn.setVisibility(View.VISIBLE);
                     binding.buttonUpload.setVisibility(View.GONE);
                 }
+        }else if(requestCode == PICK_PHOTO_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+            Uri selectedImageUri = data.getData();
+            dashboardViewModel.setImagePath(selectedImageUri.toString());
+            dataLayoutBinding.addTitleBtn.setVisibility(View.VISIBLE);
+            dataLayoutBinding.addDescrBtn.setVisibility(View.VISIBLE);
+            binding.buttonUpload.setVisibility(View.GONE);
         }
 
     }
+
+
+
 
 
 }

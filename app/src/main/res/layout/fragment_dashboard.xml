@@ -11,6 +11,11 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="fill_parent">
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+    />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
@@ -48,6 +53,15 @@
         android:layout_marginBottom="16dp"
         android:text="Add Tag"/>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="0dp"
+        app:srcCompat="@drawable/baseline_today_24"/>
+
 
     <Button
         android:layout_width="wrap_content"
@@ -81,4 +95,5 @@
     </RelativeLayout>
 
 </RelativeLayout>
+
 </ScrollView>
