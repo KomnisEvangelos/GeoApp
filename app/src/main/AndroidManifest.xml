@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -39,6 +41,12 @@
 
         <activity
             android:name=".ui.signup.RegisterActivity"
+            android:exported="true"
+            android:label="@string/app_name">
+        </activity>
+
+        <activity
+            android:name=".ui.dashboard.PhotoBinActivity.PhotoBinActivity"
             android:exported="true"
             android:label="@string/app_name">
         </activity>
